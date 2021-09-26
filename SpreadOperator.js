@@ -1,4 +1,5 @@
 ////Use the Spread Operator to Evaluate Arrays In-Place
+//특정 객체 또는 배열의 값을 다른 객체, 배열로 복제하거나 옮길 때 사용
 /*
 ES6 introduces the spread operator, which allows us to expand arrays and other
 expressions in places where multiple paramters or elements are expected.
