@@ -1,4 +1,4 @@
-////Use Arrow Functions to Write Concise Anonymous Functions
+////Use Arrow Functions to Write Concise Anonymous Functions 
 /*
 In Javascript, we often don't need to name our functions, especially when passing
 a function as an argument to another function. Instead, we create inline functions.
