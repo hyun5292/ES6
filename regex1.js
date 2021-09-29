@@ -287,7 +287,7 @@ Match all the letters in the strin quoteSample.
 */
 /*
 let quoteSample = "The quick brown fox jumps over the laxy dog.";
-let alphabetRegex = /[a-z]/gi;
+let alphabetRegex = /[a-z]/gi; 
 let result = quoteSample.match(alphabetRegex);
 */
 ////////////////////////////////////////////////////////////////////////////////
