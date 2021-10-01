@@ -298,3 +298,4 @@ function forecast(arr) {
 console.log(forecast(['cold', 'rainy', 'warm', 'sunny', 'cool', 'thunderstorms']));
 */
 ////////////////////////////////////////////////////////////////////////////////
+ 
