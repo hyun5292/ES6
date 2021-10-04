@@ -157,3 +157,40 @@ function truncateString(str, num) {
 truncateString("A-tisket a-tasket A green and yellow basket", 8);
 */
 ////////////////////////////////////////////////////////////////////////////////
+////Finders Keepers
+/*
+Create a function that looks through an array arr and returns the first element
+in it that a passes a 'truth test'. This means that given an element x, the 'truth
+test' is passed if func(x) is true. If no element passes the test, return undefined.
+*/
+/*
+function findElement(arr, func) {
+  for(let i = 0; i < arr.length; i++) {
+    if(func(arr[i])) {
+      return arr[i];
+    }
+  }
+  return undefined;
+}
+findElement([1, 2, 3, 4], num => num % 2 === 0);
+*/
+////////////////////////////////////////////////////////////////////////////////
+////Boo who
+/*
+Check if a value is classified as a boolean primitive. Return true or false.
+Boolean primitives are true and false.
+*/
+/*
+function booWho(bool) {
+  return typeof bool === "boolean";
+}
+booWho(null);
+*/
+////////////////////////////////////////////////////////////////////////////////
+////Title Case a Sentence
+/*
+Return the provided string with the first letter of each word capitalized. Make
+sure the rest of the word is in lower case.
+For the purpose of this exercise, you should also capitalize connecting words like
+the and of.
+*/
