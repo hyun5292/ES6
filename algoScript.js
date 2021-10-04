@@ -194,3 +194,12 @@ sure the rest of the word is in lower case.
 For the purpose of this exercise, you should also capitalize connecting words like
 the and of.
 */
+function titleCase(str) {
+  let arr = str.split(" ");
+  let result = "";
+  for(let i = 0; i < arr.length; i++) {
+    arr[i]
+  }
+  return str;
+}
+titleCase("I'm a little tea pot");
