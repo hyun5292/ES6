@@ -444,3 +444,153 @@ Penguin.prototype.fly = function() {
 }
 */
 ////////////////////////////////////////////////////////////////////////////////
+////Use a Mixin(그냥 믹신?) to Add Common Behavior Between Unrelated Objects
+/*
+As you have seen, behavior is shared through inheritance. However, there are cases
+when inheritance is not the best solution. Inheritance does not work well for
+unrelated objects like Bird and Airplane. They can both fly, but a Bird is not a
+type of Airplane and vice versa(그 반대도 마찬가지).
+
+For unrelated objects, it's better to use mixins. A mixin allows other objects to
+use a collection of functions.
+*/
+/*
+let flyMixin = function(obj) {
+  obj.fly = function() {
+    console.log("Flying, wooosh!");
+  }
+};
+*/
+/*
+The flyMixin takes any object and gives it the fly method.
+*/
+/*
+let bird = {
+  name: "Donald",
+  numLegs: 2
+};
+
+let plane = {
+  model: "777",
+  numPassengers: 524
+};
+
+flyMixin(bird);
+flyMixin(plane);
+*/
+/*
+Here bird and plane are passed into flyMixin, which then assings the fly function
+to each object. Now bird and plane can both fly:
+*/
+//bird.fly();
+//plane.fly();
+/*
+The console would display the string Flying, wooosh! twice, once for each .fly()
+call.
+
+Note how the mixin allows for the same fly method to be reused by unrelated objects
+bird and plane.
+*/
+////////////////////////////////////////////////////////////////////////////////
+/*
+Create a mixin named glideMixin that defines a method named glide. Then use the
+glideMixin to give both bird and boat the ability to glide.
+*/
+/*
+let bird = {
+  name: "Donald",
+  numLegs: 2
+};
+
+let boat = {
+  name: "Warrior",
+  type: "race-boat"
+};
+
+let glideMixin = function(obj) {
+  obj.glide = function() {
+
+  }
+}
+glideMixin(bird);
+glideMixin(boat);
+*/
+////////////////////////////////////////////////////////////////////////////////
+////Use Closure to Protect Properties Within an Object from Being Modified Externally
+/*
+In the previous challenge, bird had a public property name. It is considered public
+because it can be accessed and changed outside of bird's definition.
+*/
+//bird.name = "Duffy";
+/*
+Therefore, any part of your code can easily change the name of bird to any value.
+Think about things like passwords and bank accounts being easily changeable by
+any part of your codebase. That could cause a lot of issues.
+
+The simplest way to make this public property private is by creating a variable
+within the constructor function. This changes the scope of that variable to be
+within the constructor function versus available globally. This way, the variable
+can only be accessed and changed by methods also within the constructor function.
+*/
+/*
+function Bird() {
+  let hatchedEgg = 10;
+
+  this.getHatchedEggCount = function() {
+    return hatchedEgg;
+  };
+}
+let ducky = new Bird();
+ducky.getHatchedEggCount();
+*/
+/*
+Here getHatchedEggCount is a privileged method, because it has access to the private
+variable hatchedEgg. This is possible because hatchedEgg is declared in the same
+context as getHatchedEggCount. In JavaScript, a function always has access to the
+context in which it was created. This is called closure.
+*/
+////////////////////////////////////////////////////////////////////////////////
+/*
+Change how weight is delared in the Bird function so it is a private variable.
+Then, create a method getWeight that returns the value of weight 15.
+*/
+/*
+function Bird() {
+  let weight = 15;
+  this.getWeight = function() {
+    return weight;
+  };
+}
+let bird = new Bird();
+bird.getWeight();
+*/
+////////////////////////////////////////////////////////////////////////////////
+//Understand the Immediately Invoked Function Expression (IIFE)
+/*
+A common pattern in JavaScript is to execute a function as soon as it is declared:
+*/
+/*
+(function() {
+  console.log("Chirp, chirp!");
+}) ();
+*/
+/*
+This is an anonymous function expression that executes right away, and outputs
+Chrip, chirp! immediately.
+
+Note that the function has no name and is not stored in a variable. The two
+parenthese() at the end of the function expression cause it to be immediately
+executed or invoked. This pattern is known as an immediately invoked function
+expression or IIFE.
+*/
+////////////////////////////////////////////////////////////////////////////////
+/*
+Rewrite the function makeNest and remove its call so instead it's an anonymous
+immediately invoked function expression (IIFE);
+*/
+/*
+(function() {
+  console.log("A cozy nest is ready");
+})();
+*/
+////////////////////////////////////////////////////////////////////////////////
