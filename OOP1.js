@@ -561,7 +561,7 @@ of Dog by setting the prototype to a new object.
 */
 /*
 function Dog(name) {
-  this.name = name;
+  this.name = name; 
 }
 
 Dog.prototype = {
