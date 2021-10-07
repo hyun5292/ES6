@@ -194,11 +194,73 @@ second argument is {last: "Capulet"}, then you must return the third object from
 the array (the first argument), because it contains the name and its value, that
 was passed on as the second argument.
 */
+//내 소스 - 와 어찌저찌 성공해따...!
+/*
 function whatIsInAName(collection, source) {
   var arr = [];
+  var indexVal = Object.keys(source);
+
+  for(let i = 0; i < collection.length; i++) {
+    var rstCnt = 0;
+    for(let j = 0; j < indexVal.length; j++) {
+      if(collection[i][indexVal[j]] === source[indexVal[j]]) {
+        rstCnt += 1;
+      }
+    }
+    if(rstCnt === indexVal.length) {
+      arr.push(collection[i]);
+    }
+  }
 
   return arr;
 }
+*/
 
-whatIsInAName([{ first: "Romeo", last: "Montague" }, { first: "Mercutio", last: null },
-{ first: "Tybalt", last: "Capulet" }], { last: "Capulet" });
+//솔루션 1 - 나는 for문으로 커버한 걸 .filter로 대체
+/*
+function whatIsInAName(collection, source) {
+  var srcKeys = Object.keys(source);
+
+  return collection.filter(function(obj) {
+    for(var i = 0; i < srcKeys.length; i++) {
+      if(
+        //collection에 srcKeys[i]라는 name이 없고 값이 다른 경우
+        !obj.hasOwnProperty(srcKeys[i]) || obj[srcKeys[i]] !== source[srcKeys[i]]
+      ) {
+        return false;  //이 경우만 거르고
+      }
+    }
+    return true;  //나머지는 OK
+  });
+}
+*/
+//솔루션 2 - 나도 .every()를 쓰려고 노력했으나 실패해따...ㅠ 더 많이 자주 써봐야 할 듯ㅠㅠ
+/*
+function whatIsInAName(collection, source) {
+  var srcKeys = Object.keys(source);
+
+  return collection.filter(function(obj) {
+    return srcKeys.every(function(key) {
+      return obj.hasOwnProperty(key) && obj[key] === source[key];
+    });
+  });
+}
+*/
+//솔루션 3 - 다시 공부해야게쒀 .reduce() 자식...
+/*
+function whatIsInAName(collection, source) {
+  var srcKeys = Object.keys(source);
+
+  return collection.filter(function(obj) {
+    return srcKeys
+    .map(function(key) {
+      //collection에 srcKeys[i]라는 name이 있고 값이 같은 경우
+      return obj.hasOwnProperty(key) && obj[key] === source[key];
+    })
+    .reduce(function(a, b) {  //얘가 아직 이해가 안감ㅠ
+      return a && b;
+    });
+  });
+}
+*/
+////////////////////////////////////////////////////////////////////////////////
