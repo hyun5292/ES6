@@ -264,3 +264,46 @@ function whatIsInAName(collection, source) {
 }
 */
 ////////////////////////////////////////////////////////////////////////////////
+////Spinal(척추) Tap Case
+/*
+Convert a string to spinal case. Spinal case is all-lowercase-words-joined-by-dashes.
+*/
+//내 소스 - 이게 최선이당ㅠ
+/*
+function spinalCase(str) {
+  var newStr = str.split(/\W+/i);
+  var result = newStr.join('-').toLowerCase();
+
+  return result;
+}
+*/
+//솔루션 1
+/*
+function spinalCase(str) {
+  var regex = /\s+|_+/g;  //\s는 여백, _조합어
+  str = str.replace(/([a-z])([A-Z])/g, "$1 $2");  // ex)cAse?를 case로 대체
+
+  return str.replace(regex, "-").toLowerCase();  //regex를 -로 대체 후 소문자화
+}
+*/
+//솔루션 2
+/*
+function spinalCase(str) {
+  str = str.replace(/([a-z])([A-Z])/g, "$1 $2");  //얘가 내 문제를 해결해주나부다
+
+  return str
+  .toLowerCase()
+  .split(/(?:_| )+/)  //?이거 패턴
+  .join("-");
+}
+*/
+//솔루션3
+/*
+function spinalCase(str) {
+  return str
+  .split(/\s|_|(?=[A-Z])/)  //공백 또는 - 또는 A-Z를 기준으로 나누기
+  .join("-")
+  .toLowerCase();
+}
+*/
+////////////////////////////////////////////////////////////////////////////////
