@@ -400,3 +400,143 @@ function translatePigLatin(str, charPos = 0) {
 }
 */
 ////////////////////////////////////////////////////////////////////////////////
+////Search and Replace
+/*
+Perform a search and replace on the sentence using the arguments provided and return
+the new sentence.
+First argument is the sentence to perform the search and replace on.
+Second argument is the word that you will be replacing (before).
+Third argument is what you will be replacing the second argument with (after).
+
+Note: Preserve the case of the first character in the original word when you are
+replacing it. For example if you mean to replace the word Book with the word dog,
+it should be replaced as Dog
+*/
+//내소스 - 캬캬 쉽게 했다
+/*
+function myReplace(str, before, after) {
+  var result = "";
+  (/^[A-Z]/).test(before)
+    ? result = str.replace(before, after[0].toUpperCase() + after.substr(1, after.length))
+    : result = str.replace(before, after[0].toLowerCase() + after.substr(1, after.length));
+
+  return result;
+}
+*/
+//솔루션 1 - 나랑 비슷하군ㅎㅎ
+/*
+function myReplace(str, before, after) {
+  var index = str.indexOf(before);
+  console.log(index);
+  if(str[index] === str[index].toUpperCase()) {  //첫 문자가 대문자일 경우
+    after = after.charAt(0).toUpperCase() + after.slice(1);
+  } else {  //첫 문자가 소문자일 경우
+    after = after.charAt(0).toLowerCase() + after.slice(1);
+  }
+  str = str.replace(before, after);
+
+  return str;
+}
+*/
+//솔루션 2 - 나처럼 regex를 썼구낭
+/*
+function myReplace(str, before, after) {
+  if(/^[A-Z]/.test(before)) {
+    after = after[0].toUpperCase() + after.substring(1);
+  } else {
+    after = after[0].toLowerCase() + after.substring(1);
+  }
+  return str.replace(before, after);
+}
+*/
+//솔루션 3 - 뭔가 복잡한 소스군
+/*
+function myReplace(str, before, after) {
+  function applyCasing(source, target) {
+    var targetArr = target.split("");  //u, p
+    var sourceArr = source.split("");  //D, o, w, n
+
+    for(var i = 0; i < Math.min(targetArr.length, sourceArr.length); i++) {
+      if(/[A-Z]/.test(sourceArr[i])) {  //대문자일 경우
+        targetArr[i] = targetArr[i].toUpperCase();
+      } else {  //소문자일 경우
+        targetArr[i] = targetArr[i].toLowerCase();
+      }
+    }
+    return targetArr.join("");  //합치기
+  }
+  return str.replace(before, applyCasing(before, after));
+}
+*/
+//솔루션 4 - ....에...?
+/*
+string.prototype.capitalize =
+  String.prototype.capitalize ||
+  function() {
+    return this[0].toUpperCase() + this.slice(1);
+  };
+
+const Util = (function() {
+  function textCase(str, tCase) {
+    if (tCase) {
+      return setCase(str, tCase);
+    } else {
+      return getCase(str);
+    }
+  }
+
+  function setCase(str, tCase) {
+    switch (tCase) {
+      case "uppercase":
+        return str.toUpperCase();
+      case "lowercase":
+        return str.toLowerCase();
+      case "capitalized":
+        return str.capitalize();
+      default:
+        return str;
+    }
+  }
+
+  function getCase(str) {
+    if(str === str.toUpperCase()) {
+      return "uppercase";
+    }
+    if(str === str.toLowerCase()) {
+      return "lowercase";
+    }
+    if(str ===str.capitalize()) {
+      return "capitalized";
+    }
+    return "normal";
+  }
+
+  return {
+    textCase
+  };
+});
+
+function myReplace(str, before, after) {
+  const { textCase } = Util;
+  const regex = new RegExp(before, "gi");
+  const replacingStr = textCase(after, textCase(before));
+
+  return str.replace(regex, replacingStr);
+}
+*/
+//솔루션 5
+/*
+function myReplace(str, before, after) {
+  const myArr = str.split(" ");
+  const [wordToReplace] = myArr.filter(item => item === before);
+  return wordToReplace[0].toUpperCase() !== wordToReplace[0]  //대문자가 아닌 경우
+    //myArr에서 before인 것을 after로, 아니면 item 고대로
+    ? myArr.map(item => (item === before ? after : item)).join(" ")
+    : myArr
+      .map(item =>
+        //첫글자를 대문자로 + 나머지, 아니면 고대로
+        item === before ? after[0].toUpperCase() + after.slice(1) : item)  //
+      .join(" ");
+}
+*/
+////////////////////////////////////////////////////////////////////////////////
