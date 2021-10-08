@@ -307,3 +307,96 @@ function spinalCase(str) {
 }
 */
 ////////////////////////////////////////////////////////////////////////////////
+////Pig Latin
+//(어린 아이 말장난 - boy를 oybay라 하는 것과 같이 맨 앞자음을 어미로 돌리고 그 뒤에
+//ay를 붙히는 것처럼 하는 말장난)
+/*
+Pig Latin is a way of altering English Words. The rules are as follows:
+- If a word begins with a consonant, take the first consonant(자음) or consonant
+cluster, move it to the end of the word, and add ay to it.
+- If a word begins with a vowel, just add way at the end.
+
+Translate the provided string to Pig Latin. Inputs strings are guaranteed to be
+English words in all lowercase.
+*/
+//내소스 - pig Latin 자체가 규칙이 뚜렸하진 않지만 어쨌든 돌아간당ㅋㅋㅋ
+/*
+function translatePigLatin(str) {
+  if((/^[aeiou]/i).test(str)) {
+    return str + "way";
+  } else {
+    if((/^rh/i).test(str)) {
+        return str + "ay";
+    } else {
+      var first = str.match(/[a-z]*?[aeiou]/i)[0];
+      first = first.substr(0, first.length-1);
+      str += first;
+      str = str.substr(first.length, str.length);
+      return str + "ay";
+    }
+  }
+}
+*/
+//솔루션 1 - 원리는 이해가지만 부분부분은 이해가 안간당...
+/*
+function translatePigLatin(str) {
+  //자음으로 시작하는 최소한의 알파벳, 하지만 대문자로 시작하면 어뜨케? i를 안붙여주넹
+  let consonantRegex = /^[^aeiou]+/;  //rhythm 이건 자음이 아예 없다고 치는 건가
+  let myConsonants = str.match(consonantRegex);  //오 나랑 비슷한 생각이야
+  return myConsonants !== null
+    ? str
+        //여기에 왜 consonantRegex가 들어가지?? 일단 그 교체될 부분을 가리키는 거 같은데
+        .replace(consonantRegex, "")
+        .concat(myConsonants)
+        .concat("ay")
+    : str.concat("way");
+}
+*/
+//솔루션 2 - 오 나름 깔끔하고 제일 이해하기 쉬워서 가장 마음에 든다
+/*
+function translatePigLatin(str) {
+  var pigLatin = "";
+  var regex = /[aeiou]/gi;
+
+  if(str[0].match(regex)) {  //이거는 모음으로 시작하는 경우
+    pigLatin = str + "way";
+  } else if(str.match(regex) === null) {  //단어가 자음으로만 있는 경우
+    pigLatin = str + "ay";
+  } else {
+    var vowelIndice = str.indexOf(str.match(regex)[0]);  //단어에서 모음의 위치
+    //모음 시작 위치부터 끝까지
+    pigLatin = str.substr(vowelIndice) + str.substr(0, vowelIndice) + "ay";
+  }
+
+  return pigLatin;
+}
+*/
+//솔루션 3 - 소스가 짧은게 무조건 좋기보단 직독직해가 쉬운게 좋은 거 같다
+/*
+function translatePigLatin(str) {
+  if (str.match(/^[aeiou]/)) return str + "way";  //단어가 모음으로 시작하는 경우
+  const consonantCluster = str.match(/^[^aeiou]+/)[0]; //자음으로 시작하는 경우
+  return str.substring(consonantCluster.length) + consonantCluster + "ay";
+}
+*/
+//솔루션 4 - 호오 엄청 깔꼼 근데 주석처리가 안되넹ㅋㅋ
+/*
+function translatePigLatin(str) {
+  return str
+  */
+    //.replace(/^[aeiou]\w*/, "$&way") //모음으로 시작하는 경우
+    //자음으로 시작하는 경우, $1이 (^[^aeiou]+), $2가 (\w*)인가
+/*    .replace(/(^[^aeiou]+)(\w*)/, "$2$1ay");
+}*/
+//솔루션 5 - 호오 재밌는 방법이야
+/*
+function translatePigLatin(str, charPos = 0) {
+  return ['a', 'e', 'i', 'o', 'u'].includes(str[0])  //모음으로 시작하면
+    ? str + (charPos === 0 ? 'way' : 'ay')  //맨 처음 시작이면 way, 아니면 ay
+    : charPos === str.length  //맨 마지막 철자면
+      ? str + 'ay'  //ay
+      //str.slice(1) -> 맨 처음 철자 빼고
+      : translatePigLatin(str.slice(1) + str[0], charPos + 1);  //아니면 반복 -> 모음이 나올때까지 반복하는 듯
+}
+*/
+////////////////////////////////////////////////////////////////////////////////
