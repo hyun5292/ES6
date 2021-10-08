@@ -77,3 +77,67 @@ function pairElement(str) {
 }
 */
 ////////////////////////////////////////////////////////////////////////////////
+//Missing letters
+/*
+Find the missing letter in the passed letter range and return it.
+If all letters are present in the range, return undefined.
+*/
+//내소스 - 갈수록 배운거보다는 그냥 java로 하고 있다ㅋㅋ
+/*
+function fearNotLetter(str) {
+  var alphabet = 'abcdefghijklmnopqrstuvwxyz';
+  var strArr = str.split("");
+  var start = alphabet.indexOf(strArr[0]);
+  var end = alphabet.indexOf(strArr[strArr.length-1]);
+  for(let i = start; i < end; i++) {
+    if(alphabet[i] !== strArr[Math.abs(start - i)]) {
+      return alphabet[i];
+    }
+  }
+  return undefined;
+}
+*/
+//솔루션 1 - 내가 원한게 이거였어!!
+/*
+function fearNotLetter(str) {
+  for(var i = 0; i < str.length; i++) {
+    var code = str.charCodeAt(i);
+
+    //그래!! 하나씩 증가시키면서 비교할 수 있는 방법이 있을텐데 이걸 몰라쒀!!
+    if(code !== str.charCodeAt(0) + i) {
+      return String.fromCharCode(code - 1);
+    }
+  }
+  return undefined;
+}
+*/
+//솔루션 2 - 이게 진짜 자바스크립트 응용 소스라 할 수 있지
+/*
+function fearNotLetter(str) {
+  let currCharCode = str.charCodeAt(0);
+  let missing = undefined;
+
+  str
+    .split("")
+    .forEach(letter => {
+      if(letter.charCodeAt(0) === currCharCode) {
+        currCharCode++;
+      } else {
+        missing = String.fromCharCode(currCharCode);
+      }
+    });
+
+  return missing;
+}
+*/
+//솔루션 3 - 그래 알파벳 차이로 구하면 되는데ㅠ
+/*
+function fearNotLetter(str) {
+  for (let i = 1; i < str.length; ++i) {
+    if(str.charCodeAt(i) - str.charCodeAt(i - 1) > 1) {  //t - s = 1, v - t = 2, w - v = 1, x - w = 1
+      return String.fromCharCode(str.charCodeAt(i - 1) + 1);
+    }
+  }
+}
+*/
+////////////////////////////////////////////////////////////////////////////////
