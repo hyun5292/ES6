@@ -337,4 +337,62 @@ function convertHTML(str) {
 }
 */
 ////////////////////////////////////////////////////////////////////////////////
-////
+////Sum All Odd Fibonacci Numbers
+/*
+Given a positive integer num, return the sum of all odd Fibonacci numbers that
+are less than or equal to num.
+
+The first two numbers in the Fibonacci sequence are 1 and 1. Every addtional number
+in the sequence is the sum of the two previous numbers. The first six numbers of
+the Fibonacci sequence are 1, 1, 2, 3, 5 and 8.
+
+For example, sumFibs(10) should return 10 because all odd Fibonacci numbers less
+than or equal to 10 are 1, 1, 3 and 5.
+*/
+//내소스 - 자바스크립트인가 그냥 자바인가...
+/*
+function sumFibs(num) {
+  var fibo = [1, 1];
+  var result = fibo[0] + fibo[1];
+  var i = 2;
+  while(true) {
+    fibo.push(fibo[i - 2] + fibo[i - 1]);
+    if(fibo[i] > num) break;
+    else if(fibo[i] % 2 === 1) result += fibo[i];
+    i++;
+  }
+  return result;
+}
+*/
+//솔루션 1 - 배열 안쓰면 이렇게 해야하는구낭
+/*
+function sumFibs(num) {
+  let prevNumber = 0;
+  let currNumber = 1;
+  let result = 0;
+  while(currNumber <= num) {
+    if(currNumber % 2 !== 0) {  //홀수일 경우
+      result += currNumber;  //더하겠지...
+    }
+    currNumber += prevNumber;  //그렇지 이전값+현재값 해야지, 1, 2, 3, 5, 8, ...
+    prevNumber = currNumber - prevNumber;  //1-0=1, 2-1=1, 3-1=2, 5-2=3, 8-3=5, ...
+  }
+
+  return result;
+}
+*/
+//솔루션 2 - unshift()는 배열 맨 앞에 추가
+/*
+function sumFibs(num) {
+  if (num <= 0) return 0;
+  const arrFib = [1, 1];
+  let nextFib = 0;
+
+  while((nextFib = arrFib[0] + arrFib[1]) <= num) {
+    arrFib.unshift(nextFib);
+  }
+  //.filter() -> 홀수인 것, .reduce() -> a는 뭐고 b는 뭘까 지금까지전체값더한것+현재 값?
+  return arrFib.filter(x => x % 2 != 0).reduce((a, b) => a + b);
+}
+*/
+////////////////////////////////////////////////////////////////////////////////
