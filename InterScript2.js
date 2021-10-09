@@ -396,3 +396,83 @@ function sumFibs(num) {
 }
 */
 ////////////////////////////////////////////////////////////////////////////////
+////Sum All Primes(보험료래ㅋㅋㅋㅋㅋ 보험료를 전부 더하시오ㅋㅋㅋ 소수겠지ㅋㅋㅋ)
+/*
+A prime number is a whole number greater than 1 with exactly two divisors: 1 and
+itself. For example, 2 is a prime number because it is only divisible by 1 and 2.
+In contrast, 4 is not prime since it is divisible by 1, 2 and 4.
+
+Rewrite sumPrimes so it returns the sum of all prime numbers that are less than
+or equal to num.
+*/
+//내소스
+/*
+function sumPrimes(num) {
+  var result = 0;
+  var cnt = 0;
+
+  var result = 0;
+  var cnt = 0;
+
+  for(var i = 2; i <= num; i++) {
+    for(var j = 1; j <= i; j++) {
+      if(i % j === 0) {
+        cnt += 1;
+      }
+    }
+    if(cnt === 2) {
+      result += i;
+    }
+    cnt = 0;
+  }
+  return result;
+}
+*/
+//솔루션 1 - Divisibility checking - 내 소스 for문 중첩을 분해해서 함수로 만든 것
+/*
+function sumPrimes(num) {
+  function isPrime(num) {
+    for (let i = 2; i <= Math.sqrt(num); i++) {  //Math.sqrt는 루트
+      if(num % i == 0) return false;
+    }
+    return true;
+  }
+
+  let sum = 0;
+  for(let i = 2; i <= num; i++) {
+    if(isPrime(i)) sum += i;
+  }
+  return sum;
+}
+*/
+//솔루션 2 - List of prime numbers
+/*
+function sumPrimes(num) {
+  let primes = [];
+  for(let i = 2; i <= num; i++) {
+    if (primes.every((prime) => i % prime !== 0)) {  //지금 primes에 아무것도 없는데...?
+      console.log(primes);
+      primes.push(i);
+    }
+  }
+  return primes.reduce((sum, prime) => sum + prime, 0);
+}
+*/
+//솔루션 3 - 뭐지...
+/*
+function sumPrimes(num) {
+  let isPrime = Array(num + 1).fill(true);  //num이 11이면 12개의 배열을 true로
+  isPrime[0] = false;
+  isPrime[1] = false;
+  for(let i = 2; i <= Math.sqrt(num); i++) {  //어차피 약수는 루트씌운것보다 작을테니
+    if(isPrime[i]) {  //true로 시작하겠지
+      for(let j = i * i; j <= num; j += i)  //2*2=4, 3*3=9
+      isPrime[j] = false;
+    }
+  }  //그럼 결국 false, false, true, false, true, true, true, true, true, false, true, true
+
+  return isPrime.reduce(
+    (sum, prime, index) => prime ? sum + index : sum, 0  //2 + 4 + 5 + 6 + 7 + 8 + 10 + 11
+  );
+}
+*/
