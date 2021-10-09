@@ -177,7 +177,7 @@ function uniteUnique(arr1, arr2, arr3) {
 
   for(var i = 0; i < arguments.length; i++) {  //[arr1, arr2, arr3] => arguments
     var arrayArguments = arguments[i];
-    for(var j =0; j < arrayArguments.length; j++) {
+    for(var j = 0; j < arrayArguments.length; j++) {
       var indexValue = arrayArguments[j];
       if(finalArray.indexOf(indexValue) < 0) {
         finalArray.push(indexValue);
@@ -250,3 +250,91 @@ function uniteUnique(...arr) {
 console.log(uniteUnique([1, 3, 2], [5, 2, 1, 4], [2, 1]));
 */
 ////////////////////////////////////////////////////////////////////////////////
+////Convert HTML Entities
+/*
+Convert the characters &, <, >, " (double quote) and '(apostrophe), in a string
+to their corresponding HTML entities.
+*/
+//내 소스 - var regStr = /[<>&\'\"]/gi; 이거 알아놨는데ㅠ 결국 2개 이상일 경우를 못하넹
+/*
+function convertHTML(str) {
+  var chars = {
+    '&': "&amp;",
+    '<': "&lt;",
+    '>': "&gt;",
+    '\"': "&quot;",
+    '\'': "&apos;"
+  };
+
+  var strArr = str.split("");
+  for(let i = 0; i < strArr.length; i++) {
+    if(chars.hasOwnProperty(strArr[i])) {
+      strArr[i] = chars[strArr[i]];
+    }
+  }
+  return strArr.join("");
+
+}
+*/
+//솔루션 1 - 오홍 switch를 썼군
+/*
+function convertHTML(str) {
+  var temp = str.split("");
+
+  for(var i =0; i < temp.length; i++) {
+    switch (temp[i]) {
+      case "<":
+        temp[i] = "&lt;";
+        break;
+      case "&":
+        temp[i] = "&amp;";
+        break;
+      case ">":
+        temp[i] = "&gt;";
+        break;
+      case '"':
+        temp[i] = "&quot;";
+        break;
+      case "'":
+        temp[i] = "&apos;";
+        break;
+    }
+  }
+
+  temp = temp.join("");
+  return temp;
+}
+*/
+//솔루션 2 - 내가 시도하다가 실패한 거를 더 줄였네ㅠ 와 이렇게 하면 되는구나...
+/*
+function convertHTML(str) {
+  const htmlEntities = {
+    "&": "&amp;",
+    "<": "&lt;",
+    ">": "&gt;",
+    '"': "&quot;",
+    "'": "&apos;"
+  };
+
+  return str.replace(/([&<>\"'])/g, match => htmlEntities[match]);
+}
+*/
+//솔루션 3 - 그래 split으로 나누고 join으로 합치는거 하려다가 실패해따구ㅠㅠ
+/*
+function convertHTML(str) {
+  const htmlEntities = {
+    "&": "&amp;",
+    "<": "&lt;",
+    ">": "&gt;",
+    '"': "&quot;",
+    "'": "&apos;"
+  };
+
+  return str
+    .split("")
+    .map(entity => htmlEntities[entity] || entity)  //움 &amp; || & => 이건가 ?
+    .join("");
+}
+*/
+////////////////////////////////////////////////////////////////////////////////
+////
