@@ -141,3 +141,112 @@ function fearNotLetter(str) {
 }
 */
 ////////////////////////////////////////////////////////////////////////////////
+////Sorted Union
+/*
+Write a function that takes two or more arrays and returns a new array of unique
+values in the order of the original provided arrays.
+
+In other words, all values from all arrays should be included in their original
+order, but with no duplicates in the final array.
+
+The unique numbers should be sorted by their original order, but the final array
+should not be sorted in numerical order.
+
+Check the assertion tests for examples.
+*/
+//내 소스 - 더 간단히 줄일 수 있는 방법이 없을까...
+/*
+function uniteUnique(...arr) {
+  var newArr = arr[0];
+
+  for(let i = 1; i < arr.length; i++) {
+    for(let j = 0; j < arr[i].length; j++) {
+      if(newArr.indexOf(arr[i][j]) === -1) {
+        newArr.push(arr[i][j]);
+      }
+    }
+  }
+
+  return newArr;
+}
+*/
+//솔루션 1 - 나랑 비슷!
+/*
+function uniteUnique(arr1, arr2, arr3) {
+  var finalArray = [];
+
+  for(var i = 0; i < arguments.length; i++) {  //[arr1, arr2, arr3] => arguments
+    var arrayArguments = arguments[i];
+    for(var j =0; j < arrayArguments.length; j++) {
+      var indexValue = arrayArguments[j];
+      if(finalArray.indexOf(indexValue) < 0) {
+        finalArray.push(indexValue);
+      }
+    }
+  }
+
+  return finalArray;
+}
+*/
+//솔루션 2 - 다들 arguments 키워드를 썼구나
+/*
+function uniteUnique(arr) {
+  var args = [...arguments];
+  var result = [];
+  for(var i =0; i < args.length; i++) {
+    for(var j = 0; j < args[i].length; j++) {
+      if(!result.inlcudes(args[i][j])) {
+        result.push(args[i][j]);
+      }
+    }
+  }
+  return result;
+}
+*/
+//솔루션 3 - 앞 뒤 배열을 비교하는 개념은 똑같음
+/*
+function uniteUnique(arr1, arr2, arr3) {
+  var newArr;
+  var args = Array.prototype.slice.call(arguments);  //익명 함수 호출
+  newArr = args.reduce(function(arrA, arrB){
+    return arrA.concat(
+      arrB.filter(function(i) {
+        return arrA.indexOf(i) === -1;
+      })
+    )
+  });
+
+  return newArr;
+}
+*/
+//솔루션 4 - 와 indexOf랑 pos를 비교하니까 딱 맞게 나오는구나 신기
+/*
+function uniteUnique() {
+  var concatArr = [];
+  var i = 0;
+  while(arguments[i]) {  //매개변수 부분에 안써놔도 함수 호출할 때 보내면 쓸 수 있구나
+    concatArr = concatArr.concat(arguments[i]);  //[ 1, 3, 2, 5, 2, 1, 4, 2, 1 ]
+    i++;
+  }
+  var uniqueArray = concatArr.filter(function(item, pos) {  //var 키워드가 빠졌다
+    return concatArr.indexOf(item) == pos;  //pos는 0부터 8까지
+  });
+  return uniqueArray;
+}
+*/
+//솔루션 5 - 나도 Set을 쓸까 했는데 와 이렇게 간단할 수가.. concat을 썼으면 성공이었구나
+/*
+function uniteUnique(...arrays) {
+  const flatArray = [].concat(...arrays);
+  return [...new Set(flatArray)];
+}
+*/
+//솔루션 6
+/*
+function uniteUnique(...arr) {
+  return [...new Set(arr.flat())];  //와 .flat(): [1, 3, 2, [5, 2, 1, 4]] -> [1, 3, 2, 5, 2, 1, 4] 이렇게 납작하게? 만드는 기능
+}
+//const uniteUnique = (...arr) => [...new Set(arr.flat())];
+console.log(uniteUnique([1, 3, 2], [5, 2, 1, 4], [2, 1]));
+*/
+////////////////////////////////////////////////////////////////////////////////
