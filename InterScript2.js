@@ -491,6 +491,8 @@ that is also evenly divisible by all numbers between 1 and 3. The answer here
 would be 6.
 */
 //내소스
-function smallestCommons(str) {
-  
+//최소공배수가... 그 최소공배수가 아니라... [1, 5]면 1, 2, 3, 4, 5 전부의 최소공배수ㅋㅋ 하아...
+//1, 2 -> 2 => 2, 3 -> 6 => 6, 3 -> 12 => 12, 4 -> 12 => 12, 5 -> 60
+function smallestCommons(arr) {
+
 }
