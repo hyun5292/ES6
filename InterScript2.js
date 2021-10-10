@@ -490,9 +490,32 @@ For example, if given 1 and 3, find the smallest common multiple of both 1 and 3
 that is also evenly divisible by all numbers between 1 and 3. The answer here
 would be 6.
 */
-//내소스
+//내소스 - 길지만 멘탈이 흔들렸기 때문에 으짤 수 읎다.
 //최소공배수가... 그 최소공배수가 아니라... [1, 5]면 1, 2, 3, 4, 5 전부의 최소공배수ㅋㅋ 하아...
 //1, 2 -> 2 => 2, 3 -> 6 => 6, 3 -> 12 => 12, 4 -> 12 => 12, 5 -> 60
+/*
 function smallestCommons(arr) {
-
+  arr = arr.sort(function(a, b) { return a - b; });
+  var result = arr[0];
+  for(let i = arr[0] + 1; i <= arr[1]; i++) {
+    var big = 0, small = 0;
+    if(result < i) {
+      big = i;
+      small = result;
+    } else {
+      big = result;
+      small = i;
+    }
+    for(let j = 1; j <= small; j++) {
+      if((big*j)%small === 0) {
+        result = big*j;
+        break;
+      }
+    }
+  }
+  return result;
 }
+*/
+//솔루션 1
+
+console.log(smallestCommons([2, 10]));
