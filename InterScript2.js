@@ -516,6 +516,102 @@ function smallestCommons(arr) {
   return result;
 }
 */
-//솔루션 1
+//솔루션 1 - Looping approach - 실행이 굉장히 오래걸린다... 프로그램 오류인가...?
+/*
+function smallestCommons(arr) {
+  const [min, max] = arr.sort((a, b) => a - b);
+  const numberDivisors = max - min + 1;  //5-1+1=5, 10-2+1=9?
+  let upperBound = 1;
+  for(let i = min; i <= max; i++) {  //(1,2,3 4,5), (2,3,4,5,6,7,8,9,10)
+    upperBound *= i;  //120, 3628800
+  }
+  for (let multiple = max; multiple <= upperBound; multiple += max) {  //
+    let divisorCount = 0;
+    for (let i = min; i <= max; i++) {
+      if (multiple % i === 0) {
+        divisorCount += 1;
+      }
+    }
+    if (divisorCount === numberDivisors) {
+      return multiple;
+    }
+  }
+}
+*/
+//솔루션 2 - ES6 looping - 이해 안가는 부분 설마 [1, 5]면 1부터 5까지 모두 0인 경우를 찾는건가?
+/*
+function smallestCommons(arr) {
+  const [min, max] = arr.sort((a, b) => a - b);
+  const range = Array(max - min + 1)  //개수만큼 배열을 만드는구나
+    .fill(0)  //다 0으로 채우고
+    .map((_, i) => i + min);  //min부터 1씩 증가시키며 채우는구나
+  const upperBound = range.reduce((prod, curr) => prod * curr);  //결과: 120(1~5까지 곱한것)
+  for(let multiple = max; multiple <= upperBound; multiple += max) {  //5부터 120까지, 5씩 증가 5,10,15,20,...
+    const divisible = range.every((value) => multiple % value === 0);  //얘가 이해가 안간당...
+    if(divisible) {
+      return multiple;
+    }
+  }
+  return range;
+}
+*/
+//솔루션 3 - GCD(최대공약수) and LCM(최소공배수) - 공식 같은게 있구나
+/*
+유클리드 호제법 - 2개의 자연수 a, b에 대해서 a를 b로 나눈 나머지 x이라 하면 (단, a>b)
+a와 b의 최대공약수는 b와 x의 최대공약수와 같다. 이 성질을 따라, b를 x로 나는 나머지
+y를 구하고 x를 y로 나눈 나머지를 구하는 과정을 반복하여 나머지가 0이 되었을 때 나누는
+수가 a와 b의 최대공약수
+(1, 2) ->  	1*2 / gcd(1, 2) -> gcd(2, 1%2)=gcd(2, 1) -> gcd(1, 0)
+	=> 2 / 1 = 2
+(2, 3) ->   2*3 / gcd(2, 3) -> gcd(3, 2%3)=gcd(3, 2) -> gcd(2, 3%2)=gcd(2, 1) -> gcd(1, 2%1)=gcd(1, 0)
+	=> 6 / 1 = 6
+(6, 3) ->   6*3 / gcd(6, 3) -> gcd(3, 6%3)=gcd(3, 0)
+	=> 18 / 3 = 6
+(6, 4) ->   6*4 / gcd(6, 4) -> gcd(4, 6%4)=gcd(4, 2) -> gcd(2, 4%2)=gcd(2, 0)
+	=> 24 / 2 = 12
+(12, 5) -> 12*5 / gcd(12, 5) -> gcd(5, 12%5)=gcd(5, 2) -> gcd(2, 5%2)=gcd(2, 1) -> gcd(1, 2%1)=gcd(1, 0)
+	=> 60 / 1 = 60
+*/
+/*
+function smallestCommons(arr) {
+  const [min, max] = arr.sort((a, b) => a - b);
+  const range = Array(max - min + 1)
+    .fill(0)
+    .map((_, i) => i + min);  //여기까지는 위에랑 똑같군
+  console.log(range);
+  const gcd = (a, b) => (b === 0) ? a : gcd(b, a % b);
+  const lcm = (a, b) => a * b / gcd(a, b);
+  return range.reduce((multiple, curr) => lcm(multiple, curr));
+}
+*/
+//솔루션 4 - Prime factorization
+/*
+function smallestCommons(arr) {
+  let primeFactors = {};
+  const [min, max] = arr.sort((a, b) => a - b);
+  for(let i = min; i <= max; i++) {
+    let primes = getPrimeFactors(i);
+    for(let j in primes) {
+      if(!primeFactors[j] || primes[j] > primeFactors[j]) {
+        primeFactors[j] = primes[j];
+      }
+    }
+  }
+  let multiple = 1;
+  for(let i in primeFactors) {
+    multiple *= i ** primeFactors[i];
+  }
+  return multiple;
+}
 
-console.log(smallestCommons([2, 10]));
+function getPrimeFactors(num) {
+  const factors = {};
+  for(let prime = 2; prime <= num; prime++) {
+    while((num % prime) === 0) {
+      factors[prime] = (factors[prime]) ? factors[prime] + 1 : 1;
+      num /= prime;
+    }
+  }
+  return factors;
+}
+*/
