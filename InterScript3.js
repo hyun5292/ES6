@@ -124,13 +124,14 @@ function steamrollArray(val,flatArr=[]) {
 */
 //솔루션 5 - 크으으 다들 Array.isArray() 썼구나 인터넷에서 잘 찾았군 배열 깊이 검색하다가 나왔는데
 //근데 !Array.isArray(elem) 왜 이거 앞에 !가 붙은건지 더 고민해봐야할듯
+/*
 function steamrollArray(arr, flatArr = []) {
   const elem = arr.pop(); //.pop()이 배열 맨 뒤 추출?, [1, [2], [3, [[4]]]]->[ 3, [ [ 4 ] ] ]
-  console.log(elem);
   return elem
     ? !Array.isArray(elem)  //배열인가 아닌가
       ? steamrollArray(arr, [elem, ...flatArr])  //배열이 아니면
       : steamrollArray(arr.concat(elem), flatArr)
     : flatArr;  //배열이면
 }
-console.log(steamrollArray([1, [2], [3, [[4]]]]));
+*/
+////////////////////////////////////////////////////////////////////////////////
