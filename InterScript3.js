@@ -193,3 +193,80 @@ function binaryAgent(str) {
 }
 */
 ////////////////////////////////////////////////////////////////////////////////
+////Everything Be True
+/*
+Check if the predicate (second argument) is truthy on all elements of a collection
+(first argument).
+
+In other words, you are given an array collection of objects. The predicate pre
+will be an object property and you need to return true if its value is truthy.
+Otherwise, return false.
+
+In JavaScript, truthy values are values that translate to true when evaluated in
+a Boolean context.
+
+Remember, you can access object properties through either dot notation or []
+notation.
+*/
+//내소스 - 줄였는데 괴기스럽네ㅋㅋ
+/*
+function truthCheck(collection, pre) {
+  var result = [];
+  //문자가 아니면 isNan()을 해야지, 문자면 하면 안돼 해봤자 Nan으로 나오니까
+  collection.map(c => (c.hasOwnProperty(pre) && (typeof c[pre]) == "string")
+    ? (c[pre] != null && c[pre] != "") ? result.push(true) : result.push(false)  //문자일 경우
+    : (c[pre] != null && c[pre] != 0 && !isNaN(c[pre])) ? result.push(true) : result.push(false));  //숫자일 경우
+
+  for(let i = 0; i < result.length; i++) {
+    if(result[i] !== true) {
+      return false;
+    }
+  }
+
+  return true;
+}
+*/
+//솔루션 1 - 내가 했던 것들이 Boolean 하나면 해결되는거였구나...그랬구낭...
+/*
+function truthCheck(collection, pre) {
+  var counter = 0;
+  for (var c in collection) {
+    if(collection[c].hasOwnProperty(pre) && Boolean(collection[c][pre])) {
+      counter++;
+    }
+  }
+  return counter == collection.length;
+}
+*/
+//솔루션 2 - 크윽...Boolean...하나 더 배워따...
+/*
+function truthCheck(collection, pre) {
+  return collection.every(function(element) {
+    return element.hasOwnProperty(pre) && Boolean(element[pre]);
+  });
+}
+*/
+//솔루션 3 - ㅋㅋㅋ 이거면 되는거였어...? 그런거여쒀...?
+/*
+function truthCheck(collection, pre) {
+  return collection.every(obj => obj[pre]);
+}
+*/
+////////////////////////////////////////////////////////////////////////////////
+////Arguments Optional
+/*
+Create a function that sums two arguments together. If only one argument is provided,
+then return a function that expects one argument and returns the sum.
+
+For example, addTogether(2, 3) should return 5, and addTogether(2) should return
+a function.
+
+Calling this returned function with a single argument will then return the sum:
+//var sumTwoAnd = addTogether(2);
+sumTwoAnd(3) returns 5.
+If either argument isn't a valid number, return undefined.
+*/
+function addTogether() {
+  return false;
+}
+console.log(addTogether(2, 3));
