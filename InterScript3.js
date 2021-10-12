@@ -135,3 +135,61 @@ function steamrollArray(arr, flatArr = []) {
 }
 */
 ////////////////////////////////////////////////////////////////////////////////
+////Binary Agents
+/*
+Return an English translated sentence of the passed binary string.
+The binary string will be space separated.
+*/
+//내소스 - 와 막막하다가 String.fromCharCode()를 어디서 보고 했다ㅎㅎ 근데 parseInt에 2는 뭘까 아 2진수인가??
+/*
+function binaryAgent(str) {
+  return str
+    .split(" ")
+    .map(s => String.fromCharCode(parseInt(s, 2)))
+    .join("");
+}
+*/
+//솔루션 1 - 내가 1차로 했던 소스, 이걸 줄여따!!
+/*
+function binaryAgent(str) {
+  var biString = str.split(" ");
+  var uniString = [];
+
+  for(var i = 0; i < biString.length; i++) {
+    uniString.push(String.fromCharCode(parseInt(biString[i], 2)));
+  }
+  return uniString.join("");
+}
+*/
+//솔루션 2 - 아 2진수를 10진수로 바꾸는구나
+/*
+function binaryAgent(str) {
+  str = str.split(" ");
+  var power;
+  var decValue = 0;
+  var sentence = "";
+
+  for(var s = 0; s < str.length; s++) {
+    for(var t = 0; t < str[s].length; t++) {
+      if(str[s][t] == 1) {  //아 2진수를 10진수로 바꾸는구나
+        power = Math.pow(2, +str[s].length - t - 1);  //제곱, 2의 (+str[s].length - t - 1)승
+        decValue += power;
+      }
+    }
+    sentence += String.fromCharCode(decValue);
+    decValue = 0;
+  }
+  return sentence;
+}
+*/
+//솔루션 3 - 내 소스랑 제일 비슷하군
+/*
+function binaryAgent(str) {
+  return String.fromCharCode(
+    ...str.split(" ").map(function(char) {
+      return parseInt(char, 2);
+    })
+  );
+}
+*/
+////////////////////////////////////////////////////////////////////////////////
