@@ -266,7 +266,47 @@ Calling this returned function with a single argument will then return the sum:
 sumTwoAnd(3) returns 5.
 If either argument isn't a valid number, return undefined.
 */
+//내소스 - 예시에 3개 이상은 없자너?ㅎㅎ 와 이걸 성공했넹!!
+/*
 function addTogether() {
-  return false;
+  var newArg = [...arguments];
+  var result = 0;
+  newArg.map(arg => (typeof arg != "number")  //숫자인가 아닌가
+    ? result = undefined  //아니면 undefined
+    : (newArg.length === 2)  //맞으면 매개변수가 2개인가 아닌가
+      ? result += arg  //2개이면 더하기
+      : result = function(arg) {  //여기서도 숫자인가 아닌가 판단해야 하는구낭
+        if(typeof arg != "number") return undefined;
+        else return newArg[0] + arg;
+      });
+  return result;
 }
-console.log(addTogether(2, 3));
+*/
+//솔루션 1 - 나는 if문보다 배운 것을 써먹고 싶어따!!
+/*
+function addTogether() {
+  const [first, second] = arguments;
+  if (typeof(first) !== "number") return undefined;
+  else if (second === undefined) {  //매개변수가 1개면
+    function addSecond(second) {
+      if (typeof(second) !== "number") return undefined;
+      else return first + second;
+    }
+    return addSecond;
+  }
+  else if (typeof(second) !== "number") return undefined;
+  else  return first + second;
+}
+*/
+//솔루션 2 - if(second === undefined) 여기서 다시 넘어갈 때 first가 유지되면서
+//새 매개변수가 전달이 되네?
+/*
+function addTogether() {
+  const [first, second] = arguments;
+  if(typeof(first) !== "number") return undefined;
+  if(second === undefined) return (second) => addTogether(first, second);
+  if(typeof(second) !== "number") return undefined;
+  return first + second;
+}
+*/
+////////////////////////////////////////////////////////////////////////////////
