@@ -310,3 +310,168 @@ function addTogether() {
 }
 */
 ////////////////////////////////////////////////////////////////////////////////
+////Make a Person
+/*
+Fill in the object constructor with the following methods below:
+getFirstName()
+getLastName()
+getFullName()
+setFirstName(first)
+setLastName(last)
+setFullName(firstAndLast)
+Run the tests to see the expected output for each method. The methods that take
+an argument must accept only one argument and it has to be a string. These methods
+must be the only available means of interacting with the object.
+*/
+//내소스 - 잘했고 솔루션하고도 같고...근데 왜 동작이 안되징...?
+/*
+var Person = function(firstAndLast) {
+  var fullName = firstAndLast;
+
+  this.getFirstName = function() {
+    return fullName.split(" ")[0];
+  };
+  this.getLastName = function() {
+    return fullName.split(" ")[1];
+  };
+  this.getFullName = function() {
+    return fullName;
+  };
+
+  this.setFirstName = function(first) {
+    fullName = first + " " + fullName.split(" ")[1];
+  };
+  this.setLastName = function(last) {
+    fullName = fullName.split(" ")[0] + " " + last;
+  };
+  this.setFullName = function(firstAndLast) {
+    fullName = firstAndLast;
+  };
+};
+//솔루션 1
+var Person = function(firstAndLast) {
+  var fullName = firstAndLast;
+
+  this.getFirstName = function() {
+    return fullName.split(" ")[0];
+  };
+
+  this.getLastName = function() {
+    return fullName.split(" ")[1];
+  };
+
+  this.getFullName = function() {
+    return fullName;
+  };
+
+  this.setFirstName = function(name) {
+    fullName = name + " " + fullName.split(" ")[1];
+  };
+
+  this.setLastName = function(name) {
+    fullName = fullName.split(" ")[0] + " " + name;
+  };
+
+  this.setFullName = function(name) {
+    fullName = name;
+  };
+};
+var bob = new Person('Bob Ross');
+bob.getFullName();
+*/
+////////////////////////////////////////////////////////////////////////////////
+////Map the Debris
+/*
+Return a new array that transforms the elements'average altitude into their orbital
+periods (in secdons).
+
+The array will contain objects in the format {name: 'name', avgAlt: avgAlt}.
+
+You can read about orbital periods on Wikipedia.
+http://en.wikipedia.org/wiki/Orbital_period
+
+The values should be rounded to the nearest whole number. The body being orbited
+is Earth.
+
+The radius of the earth is 6367.4447 kilometers, and the GM value of earth is
+398600.4418km^3s^-2.
+*/
+//내소스 - 움...결론적으로는... 공식을 어떻게 이용해야할지 모르겠다...ㅠ
+//Math.pow()-제곱근, Math.sqrt()-루트, Math.round()-반올림 공식, T = 2pi*sqrt(pow(a, 3)/GM)
+/*
+function orbitalPeriod(arr) {
+  var GM = 398600.4418;
+  var earthRadius = 6367.4447;
+  var PI = 3.14;
+  var T = 2*PI*Math.sqrt(Math.pow(earthRadius, 3)/GM);
+
+  return T;
+}
+*/
+//솔루션 1
+/*
+function orbitalPeriod(arr) {
+  var GM = 398600.4418;
+  var earthRadius = 6367.4447;
+  var a = 2 * Math.PI;
+  var newArr =[];
+
+  var getOrbPeriod = function(obj) {
+    var c = Math.pow(earthRadius + obj.avgAlt, 3);
+    var b = Math.sqrt(c /GM);
+    var orbPeriod = Math.round(a * b);
+
+    return {name: obj.name, orbitalPeriod: orbPeriod};
+  }
+
+  for(var elem in arr) {
+    newArr.push(getOrbPeriod(arr[elem]));
+  }
+
+  return newArr;
+}
+*/
+//솔루션 2
+/*
+function orbitalPeriod(arr) {
+  var GM = 398600.4418;
+  var earthRadius = 6367.4447;
+  var newArr = [];
+
+  for(var elem in arr) {
+    var orbitalPer = Math.round(
+      2 * Math.PI * Math.sqrt(Math.pow(arr[elem].avgAlt + earthRadius, 3) / GM)
+    );
+  }
+
+  return newArr;
+}
+*/
+//솔루션 3
+/*
+function orbitalPeriod(arr) {
+  var GM = 398600.4418;
+  var earthRadius = 6367.4447;
+  var newArr = JSON.parse(JSON.stringify(arr));
+  newArr.forEach(function(item) {
+    var tmp = Math.round(
+      2 * Math.PI * Math.sqrt(Math.pow(earthRadius + item.avgAlt, 3) / GM)
+    );
+    delete item.avgAlt;
+    item.orbitalPeriod = tmp;
+  });
+  return newArr;
+}
+*/
+//솔루션 4
+/*
+function orbitalPeriod(arr) {
+  const GM = 398600.4418;
+  const earthRadius = 6367.4447;
+  return arr.map(({ name, avgAlt }) => {
+    const earth = earthRadius + avgAlt;
+    const orbitalPeriod = Math.round(2 * Math.PI * Math.sqrt(Math.pow(earth, 3)/GM));
+    return { name, orbitalPeriod };
+  });
+}
+*/
