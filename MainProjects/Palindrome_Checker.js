@@ -16,14 +16,16 @@ We'll also pass strings with special symbols, such as 2A3*3a2, 2A3 3a2 and 2_A3*
 */
 //내소스 - 뒤집어서 같은지 확인
 function palindrome(str) {
-  var newArray = str.toLowerCase().match(/\w+/ig).join("");
-  var rvsArray = "";
+  var newArray = str.toLowerCase().match(/[a-z]+|[0-9]+/ig);
+  var rvsArray = newArray.reverse();
+  /*
   for(let i = newArray.length-1; i >= 0; i--) {
     rvsArray += newArray[i];
   }
+  */
   console.log(newArray);
   console.log(rvsArray);
   if (newArray === rvsArray) return true;
   else return false;
 }
-console.log(palindrome("0_0 (: /-\ :) 0-0"));
+console.log(palindrome("My age is 0, 0 si ega ym."));
