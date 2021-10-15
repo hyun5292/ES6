@@ -11,7 +11,7 @@ numbers (refer to the tests below for other variants):
 (555) 555-5555 - OK
 555 555 5555 - OK
 5555555555 - OK
-1 555 555 5555 - 앞에 1은 모얌?
+1 555 555 5555 - 앞에 1은 모얌? 아 confirm that the country code is 1이랭
 
 For this challenge you will be presented with a string such as 800-692-7753 or
 8oo-six427676;laskdjf. Your job is to validate or reject the US phone number based
@@ -24,6 +24,10 @@ true if the string is a valid US phone number; otherwise return false.
 // 맨 앞 숫자는 1만 가능?
 // 아니면 예시로 준 것들만 딱 통과시키라는 건가?
 function telephoneCheck(str) {
-  return true;
+  //숫자, (, ), - 가 아닌 것이 섞여있는 경우 false
+  if(str.match(/\S/g).join("") != str.match(/\d+|\(+|\)+|-+/g).join("")) return false;
+  console.log(str.match(/\d+|\(+|\)+|-+/g));
+
+  return str;
 }
 console.log(telephoneCheck("555-555-5555"));
