@@ -23,11 +23,14 @@ true if the string is a valid US phone number; otherwise return false.
 // 근데 () 이거로 묶는건 맨앞 숫자 3개만 가능?
 // 맨 앞 숫자는 1만 가능?
 // 아니면 예시로 준 것들만 딱 통과시키라는 건가?
+/*
 function telephoneCheck(str) {
   //숫자, (, ), - 가 아닌 것이 섞여있는 경우 false
   if(str.match(/\S/g).join("") != str.match(/\d+|\(+|\)+|-+/g).join("")) return false;
-  console.log(str.match(/\d+|\(+|\)+|-+/g));
+  console.log(str.match(/\({3}\)/);
+
 
   return str;
 }
-console.log(telephoneCheck("555-555-5555"));
+console.log(telephoneCheck("(555)555-5555"));
+*/
